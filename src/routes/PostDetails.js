@@ -3,7 +3,7 @@ import { useParams } from 'react-router';
 import { Link } from 'react-router-dom'; 
 
 export default function PostDetails({ isAuth }) {
-    let { id } = useParams();
+    const { id } = useParams();
 
     return (
         <div className="post__details">
