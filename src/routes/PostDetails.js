@@ -1,23 +1,26 @@
 import React from 'react';
 import { useParams } from 'react-router';
-import { Link } from 'react-router-dom'; 
+
+import Post from '../components/post/Post';
 
 export default function PostDetails({ isAuth }) {
     const { id } = useParams();
-
+    const post = {
+        title: `test${id}`,
+        content: `test${id}`,
+        author: "test",
+        createdAt: "xxxx-xx-xx xx:xx:xx",
+        updatedAt: "xxxx-xx-xx xx:xx:xx"
+    };
     return (
         <div className="post__details">
-            post details {id}
-            {
-                (isAuth) ? (
-                    <>
-                    <span><Link to="/posts/update">수정</Link></span>
-                    <span><Link to="/">삭제</Link></span>
-                    </>
-                ) : (
-                    <></>
-                )
-            }
+            <Post id={post.id}
+                title={post.title}
+                content={post.content}
+                author={post.author}
+                createdAt={post.createdAt}
+                updatedAt={post.updatedAt} 
+                />
         </div>
     )
 }
