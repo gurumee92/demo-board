@@ -16,7 +16,7 @@ function App() {
       </nav>
       <main className="main__main">
         <section className="main__section">
-          <Router />
+          <Router isAuth={isAuth}/>
         </section>
       </main>
       <footer className="main__footer">
