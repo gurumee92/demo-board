@@ -9,20 +9,20 @@ import NotFound from "./NotFound";
 
 
 
-export default function Router() {
+export default function Router({isAuth}) {
     return (
         <Switch>
             <Route exact path="/">
                 <Home />
             </Route>
             <Route path="/posts/create">
-                <PostCreate />
+                <PostCreate isAuth={isAuth}/>
             </Route>
             <Route path="/posts/update">
-                <PostUpdate />
+                <PostUpdate isAuth={isAuth}/>
             </Route>
             <Route path="/posts/:id">
-                <PostDetails />
+                <PostDetails isAuth={isAuth}/>
             </Route>
             <Route>
                 <NotFound />
