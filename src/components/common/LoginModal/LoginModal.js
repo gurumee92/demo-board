@@ -15,8 +15,8 @@ export default function LoginModal({ setAuth, setModalUp }) {
         setModalUp(false);
     };
     return (
-        <div className="login__modal" onSubmit={(e) => handleSubmit(e)}>
-            <form>
+        <div className="login__modal">
+            <form className="login__modal__form" onSubmit={(e) => handleSubmit(e)}>
                 <input name="username" type="text"/>
                 <input name="password" type="password"/>
                 {
