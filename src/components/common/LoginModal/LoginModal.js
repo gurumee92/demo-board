@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 export default function LoginModal({ setAuth, setModalUp }) {
     const [isSignUp, setSignUp] = useState(false);
 
-    const handleSubmit = (e) => {
+    const onSubmit = (e) => {
         e.preventDefault();
         
         if (isSignUp) {
@@ -16,7 +16,7 @@ export default function LoginModal({ setAuth, setModalUp }) {
     };
     return (
         <div className="login__modal">
-            <form className="login__modal__form" onSubmit={(e) => handleSubmit(e)}>
+            <form className="login__modal__form" onSubmit={(e) => onSubmit(e)}>
                 <input name="username" type="text"/>
                 <input name="password" type="password"/>
                 {
