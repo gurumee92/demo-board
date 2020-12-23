@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
 import Router from "./routes/Router";
+import Navigator from "./components/common/Navigator"
 
 function App() {
   return (
@@ -9,7 +10,7 @@ function App() {
         <h1><Link to="/">Demo Board</Link></h1>
       </header>
       <nav className="main__navigator">
-        로그인
+        <Navigator />
       </nav>
       <main className="main__main">
         <section className="main__section">
