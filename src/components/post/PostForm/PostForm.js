@@ -25,6 +25,7 @@ export default function PostForm({title, content, setTitle, setContent, isCreate
             history.goBack();
         }
         
+        console.log(title, content);
         return (<></>)
     };
 
