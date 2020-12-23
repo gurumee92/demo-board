@@ -33,6 +33,7 @@ export default function LoginModal({ setAuth, setModalUp }) {
                 }
                 
                 <button type="submit">submit</button>
+                <span onClick={() => setModalUp(false)}>cancel</span>
             </form>
         </div>
     )
