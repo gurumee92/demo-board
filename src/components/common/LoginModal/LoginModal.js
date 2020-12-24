@@ -46,12 +46,12 @@ export default function LoginModal({ setModalUp }) {
                 return;
             }
             
-            const id = accountList[accountList.length - 1] + 1;
+            const id = accountList[accountList.length - 1].id + 1;
             const newAccount = {
                 id,
                 username,
                 password,
-                token: `test${id}`
+                access_token: `test${id}`
             }
             setAccountList((oldList) => [
                 ...oldList,

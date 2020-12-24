@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
-import Router from "./routes/Router";
+import Router from "./components/Router";
 import Navigator from "./components/common/Navigator"
 
 function App() {

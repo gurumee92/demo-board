@@ -3,11 +3,11 @@ import { Route, Switch } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 
 import { accountState } from '../stores/accounts';
-import Home from "./Home";
-import PostCreate from "./PostCreate";
-import PostDetails from "./PostDetails";
-import PostUpdate from "./PostUpdate";
-import NotFound from "./NotFound";
+import Home from "../routes/Home";
+import PostCreate from "../routes/PostCreate";
+import PostDetails from "../routes/PostDetails";
+import PostUpdate from "../routes/PostUpdate";
+import NotFound from "../routes/NotFound";
 
 
 
