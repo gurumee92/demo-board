@@ -1,6 +1,8 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
+import { useRecoilValue } from 'recoil';
 
+import { accountState } from '../stores/accounts';
 import Home from "./Home";
 import PostCreate from "./PostCreate";
 import PostDetails from "./PostDetails";
@@ -9,7 +11,10 @@ import NotFound from "./NotFound";
 
 
 
-export default function Router({isAuth}) {
+export default function Router() {
+    const account = useRecoilValue(accountState);
+    const isAuth = (account.username !== "" && account.access_token !== "");
+
     return (
         <Switch>
             <Route exact path="/">
