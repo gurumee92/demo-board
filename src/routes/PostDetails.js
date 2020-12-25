@@ -1,26 +1,31 @@
 import React from 'react';
 import { useParams } from 'react-router';
+import { useRecoilValue } from 'recoil';
 
 import Post from '../components/post/Post';
+import { postSelector } from '../stores/posts';
+import { accountState } from '../stores/accounts';
 
-export default function PostDetails({ isAuth }) {
+export default function PostDetails() {
     const { id } = useParams();
-    const post = {
-        title: `test${id}`,
-        content: `test${id}`,
-        author: "test",
-        createdAt: "xxxx-xx-xx xx:xx:xx",
-        updatedAt: "xxxx-xx-xx xx:xx:xx"
-    };
+    const user = useRecoilValue(accountState);
+    const post = useRecoilValue(postSelector(id));
+
+    if (!post) {
+        return <>존재하지 않는 포스팅입니다.</>
+    }
+    
     return (
         <div className="post__details">
             <Post id={post.id}
-                title={post.title}
-                content={post.content}
-                author={post.author}
-                createdAt={post.createdAt}
-                updatedAt={post.updatedAt} 
-                />
+                    title={post.title}
+                    content={post.content}
+                    author={post.author}
+                    createdAt={post.createdAt}
+                    updatedAt={post.updatedAt} 
+                    isOwner={ user.username && post.author }
+                    />
+            
         </div>
     )
 }

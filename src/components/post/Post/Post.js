@@ -2,8 +2,9 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 export default function Post({id, title, content, author, createdAt, updatedAt, isOwner}) {
+    
     return (
-        <div className="post">
+        <article className="post">
             <h3 className="post__title">{title}</h3>
             <div className="post__extra_info">
                 {
@@ -21,7 +22,6 @@ export default function Post({id, title, content, author, createdAt, updatedAt, 
                 <span>{updatedAt}</span>
             </div>
             <p className="post__content">{content}</p>
-            
-        </div>
+        </article>
     )
 }
