@@ -32,8 +32,6 @@ export const postListState = atom({
     ],
 });
 
-
-
 export const postListSelector = selector({
     key: "postListSelector",
     get: ({get}) => {
@@ -42,17 +40,17 @@ export const postListSelector = selector({
     }
 });
 
-export const postSelector = selectorFamily({
-    key: "postSelector",
+export const getPostById = selectorFamily({
+    key: "getPostById",
     get: (id) => ({get}) => {
         const postList = get(postListSelector);
-        const getPost = postList.filter(p => `${p.id}` === id);
-        
-        if (getPost.length <= 0) {
+        const index = postList.findIndex(p => `${p.id}` === id);
+
+        if (index === -1) {
             return null;
         }
 
-        const post = getPost[0];
+        const post = postList[0];
         return post;
     }
 });
