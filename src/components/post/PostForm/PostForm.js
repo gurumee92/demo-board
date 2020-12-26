@@ -1,41 +1,33 @@
-import React from 'react'
-import { useHistory } from 'react-router-dom';
+import React, {useState} from 'react'
 
-export default function PostForm({title, content, setTitle, setContent, isCreateRequest}) {
-    const history = useHistory();
+export default function PostForm({initTitle, initContent, onSubmit}) {
+    const [title, setTitle] = useState(initTitle);
+    const [content, setContent] = useState(initContent);
+    const  [error, setError] = useState("");
 
-    const onChangeTitle = (e) => {
-        const value = e.target.value;
-        setTitle(value);
-    };
-
-    const onChangeContent = (e) => {
-        const value = e.target.value;
-        setContent(value);
-    };
-
-    const onSubmit = (e) => {
+    const onSubmitForm = (e) => {
         e.preventDefault();
-
-        if (isCreateRequest) {
-            console.log("create post");
-            history.push("/");
-        } else {
-            console.log("update post");
-            history.goBack();
+        if (title === "") {
+            setError("title이 비어있습니다.");
+            return;
         }
-        
-        console.log(title, content);
-        return (<></>)
+
+        if (content === "") {
+            setError("content가 비어있습니다.");
+            return;
+        }
+
+        onSubmit(title, content);
     };
 
     return (
         <div>
-            <form className="post__form" onSubmit={onSubmit}>
-                <input type="text" value={title} onChange={onChangeTitle}></input>        
-                <textarea value={content} onChange={onChangeContent}></textarea>
+            <form className="post__form" onSubmit={onSubmitForm}>
+                <input type="text" value={title} onChange={(e) => setTitle(e.target.value)}></input>        
+                <textarea value={content} onChange={(e) => setContent(e.target.value)}></textarea>
                 <button type="submit">submit</button>
             </form>
+            {error}
         </div>
     )
 }

@@ -1,26 +1,12 @@
 import React from 'react';
+import { useRecoilValue } from 'recoil';
 
 import PostItem from '../components/post/PostItem';
+import { postListState }  from '../stores/posts';
 
 export default function Home() {
-    const postList = [
-        {
-            id: 1,
-            title: "test",
-            content: "test",
-            author: "test",
-            createdAt: "xxxx-xx-xx xx:xx:xx",
-            updatedAt: "xxxx-xx-xx xx:xx:xx"
-        },
-        {
-            id: 2,
-            title: "test2",
-            content: "test2",
-            author: "test2",
-            createdAt: "xxxx-xx-xx xx:xx:xx",
-            updatedAt: "xxxx-xx-xx xx:xx:xx"
-        },
-    ];
+    const postList = useRecoilValue(postListState);
+    
     return (
         <div className="home">
             <div className="home__post_list">
