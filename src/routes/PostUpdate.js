@@ -1,31 +1,37 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useParams } from 'react-router';
-// import { useHistory } from 'react-router-dom';
-import { useRecoilValue } from 'recoil';
+import { useHistory } from 'react-router-dom';
+import { useRecoilState, useRecoilValue } from 'recoil';
 
-import { getPostById } from '../stores/posts';
-// import { accountState } from '../stores/accounts';
+import { postListState, getPostById } from '../stores/posts';
+import { accountState } from '../stores/accounts';
+import PostForm from '../components/post/PostForm';
 
 export default function PostUpdate() {
-    // const history = useHistory();
+    const history = useHistory();
     const { id } = useParams();
+    const account = useRecoilValue(accountState);
     const post = useRecoilValue(getPostById(id));
-    const [title, setTitle] = useState(post.title);
-    const [content, setContent] = useState(post.content);
+    const [postList, setPostList] = useRecoilState(postListState);
 
-    const onSubmit = (e) => {
-        e.preventDefault();
-        setTitle("");  
-        setContent("");
+    if (!(post && post.author === account.username)) {
+        history.goBack();
+        return <></>;
+    }
+
+    const onSubmit = (title, content) => {
+        const next = postList.map((p) =>`${p.id}` !== id ? p : {
+            ...post,
+            title,
+            content
+        });      
+        setPostList(next);    
+        history.goBack();
     };
 
     return (
         <div className="post__update">
-            <form className="post__form" onSubmit={onSubmit}>
-                <input type="text" value={title} onChange={(e) => setTitle(e.target.value)}></input>        
-                <textarea value={content} onChange={(e) => setContent(e.target.value)}></textarea>
-                <button type="submit">submit</button>
-            </form>
+            <PostForm initTitle={post.title} initContent={post.content} onSubmit={onSubmit} />
         </div>
     )
 }

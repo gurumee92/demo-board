@@ -43,14 +43,14 @@ export const postListSelector = selector({
 export const getPostById = selectorFamily({
     key: "getPostById",
     get: (id) => ({get}) => {
-        const postList = get(postListSelector);
+        const postList = get(postListState);
         const index = postList.findIndex(p => `${p.id}` === id);
 
-        if (index === -1) {
+        if (index < 0) {
             return null;
         }
 
-        const post = postList[0];
+        const post = postList[index];
         return post;
     }
 });

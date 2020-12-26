@@ -21,7 +21,7 @@ export default function Router() {
                 <Home />
             </Route>
             <Route path="/posts/create">
-                <PostCreate isAuth={isAuth}/>
+                <PostCreate />
             </Route>
             <Route path="/posts/update/:id">
                 <PostUpdate isAuth={isAuth}/>
