@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useHistory } from 'react-router';
 import { Link } from 'react-router-dom';
-import { useRecoilState } from 'recoil';
+import { useRecoilValue } from 'recoil';
 
 import { accountState } from 'stores/accounts';
 import { getPost, deletePost } from 'apis/posts';
@@ -9,7 +9,7 @@ import { getPost, deletePost } from 'apis/posts';
 export default function PostDetails() {
     const history = useHistory();
     const { id } = useParams();
-    const [account, setAccount] = useRecoilState(accountState);
+    const account = useRecoilValue(accountState);
     const [post, setPost] = useState(null);
     const [error, setError] = useState("");
     
@@ -40,19 +40,6 @@ export default function PostDetails() {
             setError(""); 
         }
     }, [id]);
-
-    if (account.username === "" || account.access_token === "") { 
-        const username = localStorage.getItem("username");
-        const access_token = localStorage.getItem("access_token");
-
-        if (username && access_token) {
-            setAccount({
-                username,
-                access_token
-            });
-        };
-        return <></>
-    }
 
     const onDeleteClick = async () => {
         const response = await deletePost(id, account.access_token);

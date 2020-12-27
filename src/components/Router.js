@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Route, Switch } from 'react-router-dom';
-import { useRecoilValue } from 'recoil';
+import { useRecoilState } from 'recoil';
 
 import { accountState } from '../stores/accounts';
 import Home from "../routes/Home";
@@ -12,9 +12,18 @@ import NotFound from "../routes/NotFound";
 
 
 export default function Router() {
-    const account = useRecoilValue(accountState);
-    const isAuth = (account.username !== "" && account.access_token !== "");
-
+    const [account, setAccount] = useRecoilState(accountState);
+    useEffect(() => {
+        if (account.username === "" || account.access_token === "") {
+            const username = localStorage.getItem("username");
+            const access_token = localStorage.getItem("access_token");
+            
+            if (username !== null && access_token !== null) {
+                setAccount({ username, access_token });
+            }
+        }
+    })
+    
     return (
         <Switch>
             <Route exact path="/">
@@ -24,10 +33,10 @@ export default function Router() {
                 <PostCreate />
             </Route>
             <Route path="/posts/update/:id">
-                <PostUpdate isAuth={isAuth}/>
+                <PostUpdate />
             </Route>
             <Route path="/posts/:id">
-                <PostDetails isAuth={isAuth}/>
+                <PostDetails />
             </Route>
             <Route>
                 <NotFound />

@@ -4,11 +4,9 @@ import { useRecoilState } from 'recoil';
 import PostItem from 'components/post/PostItem';
 import { postListState }  from 'stores/posts';
 import { getPostList } from 'apis/posts';
-import { accountState } from 'stores/accounts';
 
 export default function Home() {
     const [postList, setPostList] = useRecoilState(postListState);
-    const [account, setAccount] = useRecoilState(accountState);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -23,19 +21,6 @@ export default function Home() {
         fetchData();
         return () => setPostList([]);
     }, [setPostList]);
-    
-    if (account.username === "" || account.access_token === "") { 
-        const username = localStorage.getItem("username");
-        const access_token = localStorage.getItem("access_token");
-
-        if (username && access_token) {
-            setAccount({
-                username,
-                access_token
-            });
-        };
-        return <></>
-    }
 
     return (
         <div className="home">
