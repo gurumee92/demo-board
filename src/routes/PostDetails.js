@@ -35,12 +35,21 @@ export default function PostDetails() {
             setError("");
         };
         fetchData(id);
+        return () => { 
+            setPost(null);
+            setError(""); 
+        }
     }, [id]);
 
     const onDeleteClick = async () => {
         const response = await deletePost(id, account.access_token);
         setError(response.error);
-        history.push("/");
+
+        if (response.error === "") {
+            history.push("/");
+            return <></>        
+        }
+
         return <>{ error }</>
     };
     
@@ -63,7 +72,7 @@ export default function PostDetails() {
                             <></>
                         )
                     }
-                    <span>{post.author}</span>
+                    <span>작성자 : {post.author}</span> | 
                     <span>{post.createdAt}</span>
                     <span>{post.updatedAt}</span>
                 </div>

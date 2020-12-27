@@ -59,9 +59,25 @@ export const getPostList = async () => {
 
 export const updatePost = async (id, title, content, access_token) => {
     try {
-
+        const response = await axios.put(`${postResourceApiURL}/${id}`, {
+            title,
+            content,
+        }, {
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${access_token}`
+            }
+        })
+        return {
+            data: response.data,
+            error: "",
+        };
     } catch(e) {
         console.error(e);
+        return {
+            data: null,
+            error: "포스트를 업데이트하는데 실패하였습니다.",
+        };
     }
 }
 

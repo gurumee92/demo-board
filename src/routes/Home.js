@@ -18,6 +18,7 @@ export default function Home() {
             })));
         };
         fetchData();
+        return () => setPostList([]);
     }, [setPostList]);
     return (
         <div className="home">
