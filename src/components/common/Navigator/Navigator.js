@@ -1,12 +1,12 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Link } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 
-import { accountState } from '../../../stores/accounts';
-import LoginModal from "../LoginModal";
+import { accountState } from 'stores/accounts';
+import { loginModalState } from 'stores/modals'
 
 export default function Navigator() {
-    const [isModalUp, setModalUp] = useState(false);
+    const [isLoginModalUp, setLoginModalUp] = useRecoilState(loginModalState);
     const [account, setAccount] = useRecoilState(accountState);
     const isAuth = (account.username !== "" && account.access_token !== "");
     const logout = () => {
@@ -25,14 +25,7 @@ export default function Navigator() {
                     <span onClick={() => logout()}>로그아웃</span>
                     </>
                 ) : (
-                    <span onClick={() => setModalUp(!isModalUp)}>로그인</span>
-                )
-            }
-            {
-                (isModalUp) ? (
-                    <LoginModal setModalUp={setModalUp} />
-                ) : (
-                    <></>
+                    <span onClick={() => setLoginModalUp(!isLoginModalUp)}>로그인</span>
                 )
             }
         </div>
