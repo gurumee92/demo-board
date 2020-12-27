@@ -1,5 +1,5 @@
 import axios from 'axios';
-
+import querystring from 'querystring';
 const oauthApiURL = process.env.REACT_APP_OAUTH_API;
 
 export const createAccount = async (username, password) => {
@@ -8,6 +8,7 @@ export const createAccount = async (username, password) => {
             username,
             password,
         });
+        console.log(response);
         return response;
     } catch(e) {
         console.error(e);
@@ -15,15 +16,21 @@ export const createAccount = async (username, password) => {
 }
 
 export const getAccessToken = async (username, password) => {
+    const requestData = querystring.stringify({
+        username,
+        password,
+        grant_type: "password",
+    });
     try {
-        const response = await axios.post(`${oauthApiURL}/oauth/token`, {
-            username,
-            password,
-        }, {
+        const response = await axios.post(`${oauthApiURL}/oauth/token`, requestData, {
             headers: {
-                "Authorization": `Basic ${process.env.REACT_APP_OAUTH_API_BASIC}`,
-                "Content-Type": "application/x-www-form-urlencoded"
-            }
+                'Content-type': 'application/x-www-form-urlencoded'
+            },
+            auth: {
+                username: process.env.REACT_APP_OAUTH_USERNAME,
+                password: process.env.REACT_APP_OAUTH_PASSWORD,
+            },
+            data: requestData
         });
         return response;
     } catch(e) {
