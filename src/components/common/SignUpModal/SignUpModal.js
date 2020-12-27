@@ -63,8 +63,11 @@ export default function SignUpModalSignUpModal() {
                 <input name="passwordCheck" type="password" value={passwordCheck} onChange={(e) => setPasswordCheck(e.target.value)}/>        
                 <button type="submit">submit</button>
             </form>
-            <span onClick={onClickLogin}>to login</span> |  <span onClick={() => setSignUpModalUp(false)}>cancel</span>
-            { error }
+            <div className="signup__modal_error">
+                { error }
+            </div>
+            <span onClick={onClickLogin}>to login</span> |
+            <span onClick={() => setSignUpModalUp(false)}>cancel</span>
         </div>
     )
 }
