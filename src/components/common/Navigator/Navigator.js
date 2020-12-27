@@ -1,13 +1,14 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
-import { useRecoilState } from 'recoil';
+import { useRecoilValue, useRecoilState, useSetRecoilState } from 'recoil';
 
-import { accountState } from 'stores/accounts';
+import { accountState, accountSelector } from 'stores/accounts';
 import { loginModalState } from 'stores/modals'
 
 export default function Navigator() {
     const [isLoginModalUp, setLoginModalUp] = useRecoilState(loginModalState);
-    const [account, setAccount] = useRecoilState(accountState);
+    const account = useRecoilValue(accountSelector);
+    const setAccount = useSetRecoilState(accountState);
     const isAuth = (account.username !== "" && account.access_token !== "");
     const logout = () => {
         setAccount({
