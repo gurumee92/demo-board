@@ -4,14 +4,24 @@ const oauthApiURL = process.env.REACT_APP_OAUTH_API;
 
 export const createAccount = async (username, password) => {
     try {
-        const response = await axios.post(`${oauthApiURL}/accounts`, {
+        const response = await axios.post(`${oauthApiURL}/api/accounts`, {
             username,
             password,
+        }, {
+            headers: {
+                "Content-Type": "application/json"
+            }
         });
-        console.log(response);
-        return response;
+        return {
+            data: response.data,
+            error: "",
+        }
     } catch(e) {
         console.error(e);
+        return {
+            data: null,
+            error: "회원 가입할 수 없습니다.",
+        }
     }   
 }
 
@@ -32,9 +42,21 @@ export const getAccessToken = async (username, password) => {
             },
             data: requestData
         });
-        return response;
+
+        const {data: {access_token}} = response;
+        return {
+            username,
+            access_token,
+            error: "",
+        };
     } catch(e) {
         console.error(e);
+        
+        return {
+            username: "",
+            access_token: "",
+            error: "유저 정보가 올바르지 않습니다.",
+        }
     }   
     
 }

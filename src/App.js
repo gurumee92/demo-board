@@ -5,10 +5,12 @@ import { useRecoilValue } from 'recoil';
 import Router from "components/Router";
 import Navigator from "components/common/Navigator";
 import LoginModal from "components/common/LoginModal";
-import { loginModalState } from 'stores/modals'
+import SignUpModal from "components/common/SignUpModal";
+import { loginModalState, signUpModalState } from 'stores/modals'
 
 function App() {
   const isLoginModalUp = useRecoilValue(loginModalState);
+  const isSignUpModalUp = useRecoilValue(signUpModalState);
 
   return (
     <div className="App">
@@ -21,6 +23,7 @@ function App() {
       <main className="main__main">
         <div className="main__main__modal">
           { (isLoginModalUp) && <LoginModal /> }
+          { (isSignUpModalUp) && <SignUpModal /> }
         </div>
         <section className="main__main__section">
           <Router />

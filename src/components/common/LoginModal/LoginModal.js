@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useSetRecoilState } from 'recoil';
 
+import { accountState } from 'stores/accounts';
 import { loginModalState, signUpModalState } from 'stores/modals';
 import { getAccessToken } from 'apis/accounts';
 
@@ -8,6 +9,8 @@ export default function LoginModal() {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
+
+    const setAccount = useSetRecoilState(accountState);
     const setLoginModalUp = useSetRecoilState(loginModalState);
     const setSignUpModalUp = useSetRecoilState(signUpModalState);
 
@@ -25,12 +28,15 @@ export default function LoginModal() {
         }
         
         const response = await getAccessToken(username, password);
-        console.log(response);
-                
+        setAccount({
+            username: response.username,
+            access_token: response.access_token
+        });
+
         setUsername("");
         setPassword("");
-        setError("");
-        setLoginModalUp(false);
+        setError(response.error);
+        setLoginModalUp(response.error !== "");
     };
 
     const onClickSignUp = () => {
@@ -44,9 +50,9 @@ export default function LoginModal() {
                 <input name="username" type="text" value={username} onChange={(e) => setUsername(e.target.value)}/>
                 <input name="password" type="password" value={password} onChange={(e) => setPassword(e.target.value)}/>        
                 <button type="submit">submit</button>
-                { error }
             </form>
             <span onClick={onClickSignUp}>to signup</span> |  <span onClick={() => setLoginModalUp(false)}>cancel</span>
+            { error }
         </div>
     )
 }
