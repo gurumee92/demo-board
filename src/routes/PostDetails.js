@@ -4,12 +4,12 @@ import { Link } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 
 import { accountState } from 'stores/accounts';
-import { getPost } from 'apis/posts';
+import { getPost, deletePost } from 'apis/posts';
 
 export default function PostDetails() {
     const history = useHistory();
     const { id } = useParams();
-    const user = useRecoilValue(accountState);
+    const account = useRecoilValue(accountState);
     const [post, setPost] = useState(null);
     const [error, setError] = useState("");
     
@@ -33,16 +33,15 @@ export default function PostDetails() {
                 updatedAt: data.updated_at
             });
             setError("");
-            
         };
         fetchData(id);
     }, [id]);
 
-    const onDeleteClick = () => {
-        // const next = postList.filter(p => p.id !== post.id);
-        // setPostList(next);
+    const onDeleteClick = async () => {
+        const response = await deletePost(id, account.access_token);
+        setError(response.error);
         history.push("/");
-        return <></>
+        return <>{ error }</>
     };
     
     if (!post) {
@@ -55,7 +54,7 @@ export default function PostDetails() {
                 <h3 className="post__title">{post.title}</h3>
                 <div className="post__extra_info">
                     {
-                        (user.username === post.author) ? (
+                        (account.username === post.author) ? (
                             <div className="post__extra_info__links">
                                 <Link to={`/posts/update/${id}`}><span>수정</span></Link>
                                 <span onClick={onDeleteClick}>삭제</span>

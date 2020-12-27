@@ -1,7 +1,5 @@
 import { atom, selector, selectorFamily } from 'recoil';
 
-// 추후 삭제 예정
-// 일단은 회원가입을 위해서..
 export const postListState = atom({
     key: 'postListState',
     default: [],
