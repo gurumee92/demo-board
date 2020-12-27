@@ -1,27 +1,52 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, useHistory } from 'react-router';
 import { Link } from 'react-router-dom';
-import { useRecoilValue, useRecoilState } from 'recoil';
+import { useRecoilValue } from 'recoil';
 
-import { getPostById, postListState } from '../stores/posts';
-import { accountState } from '../stores/accounts';
+import { accountState } from 'stores/accounts';
+import { getPost } from 'apis/posts';
 
 export default function PostDetails() {
     const history = useHistory();
     const { id } = useParams();
     const user = useRecoilValue(accountState);
-    const post = useRecoilValue(getPostById(id));
-    const [postList, setPostList] = useRecoilState(postListState);
+    const [post, setPost] = useState(null);
+    const [error, setError] = useState("");
+    
+    useEffect(() => {
+        const fetchData = async (id) => {
+            const response = await getPost(id);
+            const data = response.data;
+            
+            if (response.error !== "") {
+                setError(response.error);
+                setPost(null);
+                return;
+            }
+
+            setPost({
+                id: data.id,
+                title: data.title,
+                content: data.content,
+                author: data.owner_name,
+                createdAt: data.created_at,
+                updatedAt: data.updated_at
+            });
+            setError("");
+            
+        };
+        fetchData(id);
+    }, [id]);
 
     const onDeleteClick = () => {
-        const next = postList.filter(p => p.id !== post.id);
-        setPostList(next);
+        // const next = postList.filter(p => p.id !== post.id);
+        // setPostList(next);
         history.push("/");
         return <></>
     };
     
     if (!post) {
-        return <>존재하지 않는 포스팅입니다.</>
+        return <>{ error }</>
     }
 
     return (

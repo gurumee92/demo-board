@@ -1,12 +1,24 @@
-import React from 'react';
-import { useRecoilValue } from 'recoil';
+import React, { useEffect } from 'react';
+import { useRecoilState } from 'recoil';
 
-import PostItem from '../components/post/PostItem';
-import { postListState }  from '../stores/posts';
+import PostItem from 'components/post/PostItem';
+import { postListState }  from 'stores/posts';
+import { getPostList } from 'apis/posts';
 
 export default function Home() {
-    const postList = useRecoilValue(postListState);
-    
+    const [postList, setPostList] = useRecoilState(postListState);
+    useEffect(() => {
+        const fetchData = async () => {
+            const { data } = await getPostList();
+            setPostList(data.map(p => ({
+                ...p,
+                author: p.owner_name,
+                createdAt: p.created_at,
+                updatedAt: p.updatedAt,
+            })));
+        };
+        fetchData();
+    }, [setPostList]);
     return (
         <div className="home">
             <div className="home__post_list">
