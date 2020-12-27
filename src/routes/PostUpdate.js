@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router';
 import { useHistory } from 'react-router-dom';
-import { useRecoilValue } from 'recoil';
+import { useRecoilState } from 'recoil';
 
 import { accountState } from 'stores/accounts';
 import PostForm from 'components/post/PostForm';
@@ -10,7 +10,7 @@ import { getPost, updatePost } from 'apis/posts';
 export default function PostUpdate() {
     const history = useHistory();
     const { id } = useParams();
-    const account = useRecoilValue(accountState);
+    const [account, setAccount] = useRecoilState(accountState);
     const [post, setPost] = useState(null);
     const [error, setError] = useState("");
     
@@ -41,6 +41,19 @@ export default function PostUpdate() {
             setError(""); 
         }
     }, [id]);
+
+    if (account.username === "" || account.access_token === "") { 
+        const username = localStorage.getItem("username");
+        const access_token = localStorage.getItem("access_token");
+
+        if (username && access_token) {
+            setAccount({
+                username,
+                access_token
+            });
+        };
+        return <></>
+    }
     
     if (account.username === "" || account.access_token === "") {
         history.push("/");

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { useRecoilValue } from 'recoil';
+import { useRecoilState } from 'recoil';
 
 import PostForm from 'components/post/PostForm';
 import { accountState } from 'stores/accounts';
@@ -9,7 +9,20 @@ import { createPost } from 'apis/posts';
 export default function PostCreate() {
     const history = useHistory();
     const [error, setError] = useState("");
-    const account = useRecoilValue(accountState);
+    const [account, setAccount] = useRecoilState(accountState);
+
+    if (account.username === "" || account.access_token === "") { 
+        const username = localStorage.getItem("username");
+        const access_token = localStorage.getItem("access_token");
+
+        if (username && access_token) {
+            setAccount({
+                username,
+                access_token
+            });
+        };
+        return <></>
+    }
     
     if (account.username === "" || account.access_token === "") {
         history.goBack();

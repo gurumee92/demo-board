@@ -32,6 +32,8 @@ export default function LoginModal() {
             username: response.username,
             access_token: response.access_token
         });
+        localStorage.setItem("username", response.username);
+        localStorage.setItem("access_token", response.access_token);
 
         setUsername("");
         setPassword("");

@@ -14,6 +14,8 @@ export default function Navigator() {
             username: "",
             access_token: "",
         });
+        localStorage.removeItem("username");
+        localStorage.removeItem("access_token");
     };
     
     return (
