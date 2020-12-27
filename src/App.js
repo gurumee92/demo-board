@@ -1,9 +1,17 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
-import Router from "./components/Router";
-import Navigator from "./components/common/Navigator"
+import { useRecoilValue } from 'recoil';
+
+import Router from "components/Router";
+import Navigator from "components/common/Navigator";
+import LoginModal from "components/common/LoginModal";
+import SignUpModal from "components/common/SignUpModal";
+import { loginModalState, signUpModalState } from 'stores/modals'
 
 function App() {
+  const isLoginModalUp = useRecoilValue(loginModalState);
+  const isSignUpModalUp = useRecoilValue(signUpModalState);
+
   return (
     <div className="App">
       <header className="main__header">
@@ -13,7 +21,11 @@ function App() {
         <Navigator />
       </nav>
       <main className="main__main">
-        <section className="main__section">
+        <div className="main__main__modal">
+          { (isLoginModalUp) && <LoginModal /> }
+          { (isSignUpModalUp) && <SignUpModal /> }
+        </div>
+        <section className="main__main__section">
           <Router />
         </section>
       </main>
