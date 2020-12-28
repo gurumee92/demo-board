@@ -3,14 +3,14 @@ import { useParams } from 'react-router';
 import { useHistory } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 
-import { accountState } from 'stores/accounts';
+import { accountSelector } from 'stores/accounts';
 import PostForm from 'components/post/PostForm';
 import { getPost, updatePost } from 'apis/posts';
 
 export default function PostUpdate() {
     const history = useHistory();
     const { id } = useParams();
-    const account = useRecoilValue(accountState);
+    const account = useRecoilValue(accountSelector);
     const [post, setPost] = useState(null);
     const [error, setError] = useState("");
     
@@ -41,6 +41,11 @@ export default function PostUpdate() {
             setError(""); 
         }
     }, [id]);
+
+    if (account.username === "" || account.access_token === "") {
+        history.push("/");
+        return <></>
+    }
 
     const onSubmit = async (title, content) => {
         const response = await updatePost(id, title, content, account.access_token);
