@@ -9,6 +9,11 @@ on:
   pull_request:
     branches: [ master ]
 
+env:  
+  S3_BUCKET_NAME: demo-api-deploy
+  PROJECT_NAME: demo-board-app
+  
+  
 jobs:
   build:
 
@@ -28,6 +33,36 @@ jobs:
 #.    추후 테스트 추가
 #     - run: npm ci
 #     - run: npm test
-    - run: npm install
-    - run: npm run build --if-present
+    - name: module install
+      run: npm install
+    
+    # test 과정 필요
+      
+    - name: npm build
+      run: npm run build --if-present
+
+    - name: Make zip file 
+      run: zip -r ./$GITHUB_SHA.zip . 
+      shell: bash
+
+
+    - name: Configure AWS credentials 
+      uses: aws-actions/configure-aws-credentials@v1 
+      with: 
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }} 
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }} 
+        aws-region: ${{ secrets.AWS_REGION }}
+
+    - name: Deliver to AWS S3
+      run: |
+        aws s3 cp \
+        --region ap-northeast-2 \
+        ./$GITHUB_SHA.zip s3://$S3_BUCKET_NAME/$PROJECT_NAME/$GITHUB_SHA.zip
+
+#     - name: Code Deploy 
+#       run: |
+#         aws deploy create-deployment --application-name demo-api-deploy \
+#         --deployment-config-name CodeDeployDefault.AllAtOnce \
+#         --deployment-group-name develop \
+#         --s3-location bucket=$S3_BUCKET_NAME,bundleType=zip,key=$PROJECT_NAME/$GITHUB_SHA.zip
 
