@@ -12,7 +12,10 @@ on:
 env:  
   S3_BUCKET_NAME: demo-api-deploy
   PROJECT_NAME: demo-board-app
-  
+  REACT_APP_OAUTH_API: ${{ OAUTH_API_URL }}
+  REACT_APP_OAUTH_USERNAME: ${{ OAUTH_API_USERNAME }}
+  REACT_APP_OAUTH_PASSWORD: ${{ OAUTH_API_PASSWORD }}
+  REACT_APP_RESOURCE_API: ${{ RESOURCE_API_URL }}
   
 jobs:
   build:
@@ -59,10 +62,10 @@ jobs:
         --region ap-northeast-2 \
         ./$GITHUB_SHA.zip s3://$S3_BUCKET_NAME/$PROJECT_NAME/$GITHUB_SHA.zip
 
-#     - name: Code Deploy 
-#       run: |
-#         aws deploy create-deployment --application-name demo-api-deploy \
-#         --deployment-config-name CodeDeployDefault.AllAtOnce \
-#         --deployment-group-name develop \
-#         --s3-location bucket=$S3_BUCKET_NAME,bundleType=zip,key=$PROJECT_NAME/$GITHUB_SHA.zip
+    - name: Code Deploy 
+      run: |
+        aws deploy create-deployment --application-name demo-board-app-deploy \
+        --deployment-config-name CodeDeployDefault.AllAtOnce \
+        --deployment-group-name develop \
+        --s3-location bucket=$S3_BUCKET_NAME,bundleType=zip,key=$PROJECT_NAME/$GITHUB_SHA.zip
 
