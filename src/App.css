@@ -1,0 +1,28 @@
+.app__header {
+    border-bottom: 3px solid whitesmoke;
+}
+
+.app__header > h1 > a {
+    color: whitesmoke;
+    text-decoration: none;
+}
+
+.app__header__navigator{
+    text-align: right;
+}
+
+.app__main {
+    height: 53rem;
+}
+
+.app__main__section {
+    margin: auto;
+    width: 75%;
+    height: 100%;
+}
+
+.app__footer {
+    border-top: 3px solid whitesmoke;
+    text-align: right;
+    color: whitesmoke;
+}
