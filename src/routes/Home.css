@@ -4,3 +4,18 @@
     overflow: auto;
     background: whitesmoke;
 }
+
+.home__fab-button {
+    position: fixed;
+    padding: 0.5rem;
+    background: gray;
+    border: 0.2rem solid black;
+    color: whitesmoke;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 100%;
+    text-align: center;
+    font-size: 1.8rem;
+    margin-left: 85rem;
+    margin-top: 45rem;
+}
