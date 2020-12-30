@@ -1,0 +1,38 @@
+.post__details {
+    height: 99%;
+    background-color: whitesmoke;
+    margin-top: 0.5rem;
+    overflow: auto;
+}
+
+.post {
+    margin: 1rem;
+    padding: 1rem;
+}
+
+.post__header {
+    background: gray;
+    color: whitesmoke;
+    height: 20%;
+}
+
+.post__title {
+    padding: 1rem;
+    margin: 0 auto;
+    font-size: 5rem;
+    
+}
+
+.post__extra_info {
+    margin-left: 1rem;
+}
+
+.post__extra_info > span {
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+}
+
+.post__extra_info > span > a {
+    color: white;
+    text-decoration: none;
+}

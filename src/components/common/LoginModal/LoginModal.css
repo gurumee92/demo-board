@@ -1,0 +1,37 @@
+.login__modal {
+    background: rgba(0, 0, 0, 0.25);
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.login__modal__content {
+    padding: 2rem;
+    height: 50%;
+    width: 20%;
+    background: white;
+    text-align: center;
+}
+
+.login__modal__form {
+    text-align: left;
+    margin-top: 5rem;
+}
+.login__modal__form > input {
+    width: 100%;
+    height: 2rem;
+    margin-bottom: 3rem;
+}
+
+.login__modal__button__area {
+    text-align: center;
+}
+
+.login__modal_error {
+    color: red;
+}

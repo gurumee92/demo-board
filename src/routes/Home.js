@@ -1,12 +1,18 @@
 import React, { useEffect } from 'react';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { Link } from 'react-router-dom';
 
 import PostItem from 'components/post/PostItem';
 import { postListState }  from 'stores/posts';
+import { accountSelector } from 'stores/accounts';
 import { getPostList } from 'apis/posts';
+
+import "./Home.css";
 
 export default function Home() {
     const [postList, setPostList] = useRecoilState(postListState);
+    const account = useRecoilValue(accountSelector);
+    const isAuth = (account.username !== "" && account.access_token !== "");
 
     useEffect(() => {
         const fetchData = async () => {
@@ -24,7 +30,14 @@ export default function Home() {
 
     return (
         <div className="home">
-            <div className="home__post_list">
+            {
+               (isAuth) && (
+                    <Link to="/posts/create">
+                        <div className="home__fab-button">+</div>
+                    </Link>    
+                )
+            }
+            <div className="home__post__list">
             {
                 postList.map((p) => <PostItem key={p.id}
                     id={p.id}

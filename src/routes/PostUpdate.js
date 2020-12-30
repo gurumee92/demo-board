@@ -7,6 +7,8 @@ import { accountSelector } from 'stores/accounts';
 import PostForm from 'components/post/PostForm';
 import { getPost, updatePost } from 'apis/posts';
 
+import "./PostUpdate.css";
+
 export default function PostUpdate() {
     const history = useHistory();
     const { id } = useParams();

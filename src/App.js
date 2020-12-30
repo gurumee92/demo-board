@@ -8,29 +8,32 @@ import LoginModal from "components/common/LoginModal";
 import SignUpModal from "components/common/SignUpModal";
 import { loginModalState, signUpModalState } from 'stores/modals'
 
+import "App.css";
+
 function App() {
   const isLoginModalUp = useRecoilValue(loginModalState);
   const isSignUpModalUp = useRecoilValue(signUpModalState);
 
   return (
     <div className="App">
-      <header className="main__header">
+      <header className="app__header">
         <h1><Link to="/">Demo Board</Link></h1>
+        <nav className="app__header__navigator">
+          <Navigator />
+        </nav>
       </header>
-      <nav className="main__navigator">
-        <Navigator />
-      </nav>
-      <main className="main__main">
-        <div className="main__main__modal">
-          { (isLoginModalUp) && <LoginModal /> }
-          { (isSignUpModalUp) && <SignUpModal /> }
-        </div>
-        <section className="main__main__section">
+      
+      <div className="app__modal">
+        { (isLoginModalUp) && <LoginModal /> }
+        { (isSignUpModalUp) && <SignUpModal /> }
+      </div>
+      <main className="app__main">
+        <section className="app__main__section">
           <Router />
         </section>
       </main>
-      <footer className="main__footer">
-        footer
+      <footer className="app__footer">
+        @copyright 11st-digital-platform
       </footer>
     </div>
   );
