@@ -5,6 +5,8 @@ import PostItem from 'components/post/PostItem';
 import { postListState }  from 'stores/posts';
 import { getPostList } from 'apis/posts';
 
+import "./Home.css";
+
 export default function Home() {
     const [postList, setPostList] = useRecoilState(postListState);
 
@@ -24,7 +26,7 @@ export default function Home() {
 
     return (
         <div className="home">
-            <div className="home__post_list">
+            <div className="home__post__list">
             {
                 postList.map((p) => <PostItem key={p.id}
                     id={p.id}

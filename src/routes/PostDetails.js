@@ -3,13 +3,15 @@ import { useParams, useHistory } from 'react-router';
 import { Link } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 
-import { accountState } from 'stores/accounts';
+import { accountSelector } from 'stores/accounts';
 import { getPost, deletePost } from 'apis/posts';
+
+import "./PostDetails.css";
 
 export default function PostDetails() {
     const history = useHistory();
     const { id } = useParams();
-    const account = useRecoilValue(accountState);
+    const account = useRecoilValue(accountSelector);
     const [post, setPost] = useState(null);
     const [error, setError] = useState("");
     
@@ -60,22 +62,20 @@ export default function PostDetails() {
     return (
         <div className="post__details">
             <article className="post">
-                <h3 className="post__title">{post.title}</h3>
-                <div className="post__extra_info">
-                    {
-                        (account.username === post.author) ? (
-                            <div className="post__extra_info__links">
-                                <Link to={`/posts/update/${id}`}><span>수정</span></Link>
-                                <span onClick={onDeleteClick}>삭제</span>
-                            </div>
-                        ) : (
-                            <></>
-                        )
-                    }
-                    <span>작성자 : {post.author}</span> | 
-                    <span>{post.createdAt}</span>
-                    <span>{post.updatedAt}</span>
+                <div className="post__header">
+                    <h1 className="post__title">{post.title}</h1>
+                    <div className="post__extra_info">
+                        <span>{post.author}</span>|<span>{post.createdAt}</span> 
+                        {
+                            (account.username === post.author) && (
+                                <>
+                                    |<span><Link to={`/posts/update/${id}`}>수정</Link></span>|<span onClick={onDeleteClick}>삭제</span>
+                                </>
+                            )
+                        }
+                    </div>
                 </div>
+                
                 <p className="post__content">{post.content}</p>
             </article>
         </div>
