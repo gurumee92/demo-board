@@ -4,6 +4,8 @@ import { useSetRecoilState } from 'recoil';
 import { loginModalState, signUpModalState } from 'stores/modals';
 import { createAccount } from 'apis/accounts';
 
+import "./SignUpModal.css";
+
 export default function SignUpModalSignUpModal() {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
@@ -57,17 +59,25 @@ export default function SignUpModalSignUpModal() {
 
     return (
         <div className="signup__modal">
-            <form className="signup__modal__form" onSubmit={onSubmit}>
-                <input name="username" type="text" value={username} onChange={(e) => setUsername(e.target.value)}/>
-                <input name="password" type="password" value={password} onChange={(e) => setPassword(e.target.value)}/>    
-                <input name="passwordCheck" type="password" value={passwordCheck} onChange={(e) => setPasswordCheck(e.target.value)}/>        
-                <button type="submit">submit</button>
-            </form>
-            <div className="signup__modal_error">
-                { error }
+            <div className="signup__modal__content">
+                <h2>회원가입</h2>
+                <form className="signup__modal__form" onSubmit={onSubmit}>
+                    <label htmlFor="username">username</label>
+                    <input name="username" type="text" value={username} onChange={(e) => setUsername(e.target.value)}/>
+                    <label htmlFor="password">password</label>
+                    <input name="password" type="password" value={password} onChange={(e) => setPassword(e.target.value)}/>    
+                    <label htmlFor="passwordCheck">password 확인</label>
+                    <input name="passwordCheck" type="password" value={passwordCheck} onChange={(e) => setPasswordCheck(e.target.value)}/>        
+                    <div className="signup__modal__button__area">
+                        <button type="submit">submit</button>
+                        <button onClick={() => setSignUpModalUp(false)}>cancel</button>
+                    </div>
+                </form>
+                <span onClick={onClickLogin}>to login</span>
+                <div className="signup__modal_error">
+                    { error }
+                </div>
             </div>
-            <span onClick={onClickLogin}>to login</span> |
-            <span onClick={() => setSignUpModalUp(false)}>cancel</span>
         </div>
     )
 }

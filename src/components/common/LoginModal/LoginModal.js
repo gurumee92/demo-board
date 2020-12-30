@@ -5,6 +5,8 @@ import { accountState } from 'stores/accounts';
 import { loginModalState, signUpModalState } from 'stores/modals';
 import { getAccessToken } from 'apis/accounts';
 
+import "./LoginModal.css";
+
 export default function LoginModal() {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
@@ -48,16 +50,25 @@ export default function LoginModal() {
 
     return (
         <div className="login__modal">
-            <form className="login__modal__form" onSubmit={onSubmit}>
-                <input name="username" type="text" value={username} onChange={(e) => setUsername(e.target.value)}/>
-                <input name="password" type="password" value={password} onChange={(e) => setPassword(e.target.value)}/>        
-                <button type="submit">submit</button>
-            </form>
-            <div className="login__modal_error">
-                { error }
+            <div className="login__modal__content">
+                <h2>로그인</h2>
+                
+                <form className="login__modal__form" onSubmit={onSubmit}>
+                    <label htmlFor="username">username</label>
+                    <input name="username" type="text" value={username} onChange={(e) => setUsername(e.target.value)}/> <br/>
+                    <label htmlFor="password">password</label>
+                    <input name="password" type="password" value={password} onChange={(e) => setPassword(e.target.value)}/> <br/>       
+                    <div className="login__modal__button__area">
+                        <button type="submit">submit</button>
+                        <button onClick={() => setLoginModalUp(false)}>cancel</button>
+                    </div>
+                </form>
+                
+                <span onClick={onClickSignUp}>to signup</span> 
+                <div className="login__modal_error">
+                    { error }
+                </div>
             </div>
-            <span onClick={onClickSignUp}>to signup</span> | 
-            <span onClick={() => setLoginModalUp(false)}>cancel</span>
         </div>
     )
 }
