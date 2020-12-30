@@ -1,0 +1,20 @@
+.post__item {
+    background-color: whitesmoke;
+    border: 0.3rem solid lightgray;
+    margin: 1rem auto;
+    padding: 1rem;
+    color: black;
+}
+
+.post__item > a {
+    text-decoration: none;
+    color: black;
+}
+
+.post__item__extra_info {
+    text-align: right;
+}
+
+.post__item__extra_info > span {
+    display: block;
+}
