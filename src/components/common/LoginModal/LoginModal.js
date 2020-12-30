@@ -54,9 +54,9 @@ export default function LoginModal() {
                 <h2>로그인</h2>
                 
                 <form className="login__modal__form" onSubmit={onSubmit}>
-                    <label for="username">username</label>
-                    <input  name="username" type="text" value={username} onChange={(e) => setUsername(e.target.value)}/> <br/>
-                    <label for="password">password</label>
+                    <label htmlFor="username">username</label>
+                    <input name="username" type="text" value={username} onChange={(e) => setUsername(e.target.value)}/> <br/>
+                    <label htmlFor="password">password</label>
                     <input name="password" type="password" value={password} onChange={(e) => setPassword(e.target.value)}/> <br/>       
                     <div className="login__modal__button__area">
                         <button type="submit">submit</button>

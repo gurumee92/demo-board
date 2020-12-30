@@ -62,11 +62,11 @@ export default function SignUpModalSignUpModal() {
             <div className="signup__modal__content">
                 <h2>회원가입</h2>
                 <form className="signup__modal__form" onSubmit={onSubmit}>
-                    <label for="username">username</label>
+                    <label htmlFor="username">username</label>
                     <input name="username" type="text" value={username} onChange={(e) => setUsername(e.target.value)}/>
-                    <label for="password">password</label>
+                    <label htmlFor="password">password</label>
                     <input name="password" type="password" value={password} onChange={(e) => setPassword(e.target.value)}/>    
-                    <label for="passwordCheck">password 확인</label>
+                    <label htmlFor="passwordCheck">password 확인</label>
                     <input name="passwordCheck" type="password" value={passwordCheck} onChange={(e) => setPasswordCheck(e.target.value)}/>        
                     <div className="signup__modal__button__area">
                         <button type="submit">submit</button>

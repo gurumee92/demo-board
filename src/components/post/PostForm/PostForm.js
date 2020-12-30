@@ -7,7 +7,7 @@ export default function PostForm({initTitle, initContent, onSubmit}) {
     const history = useHistory();
     const [title, setTitle] = useState(initTitle);
     const [content, setContent] = useState(initContent);
-    const  [error, setError] = useState("");
+    const [error, setError] = useState("");
 
     const onSubmitForm = (e) => {
         e.preventDefault();
@@ -25,17 +25,20 @@ export default function PostForm({initTitle, initContent, onSubmit}) {
     };
 
     const onClickCancel = () => {
-        history.goBack();
-        return <></>
+        if (history.location.pathname === "/posts/create") {
+            history.goBack();
+        } else {
+            history.go(1);
+        }
     }
 
     return (
         <div className="post__form__wrapper">
             <form className="post__form" onSubmit={onSubmitForm}>
-                <label for="title">제목</label>
+                <label htmlFor="title">제목</label>
                 <input name="title" type="text" value={title} onChange={(e) => setTitle(e.target.value)}></input>        
 
-                <label for="content">내용</label>
+                <label htmlFor="content">내용</label>
                 <textarea name="content" value={content} onChange={(e) => setContent(e.target.value)}></textarea>
 
                 <div className="post__form__button__area">
