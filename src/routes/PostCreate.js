@@ -6,6 +6,8 @@ import PostForm from 'components/post/PostForm';
 import { accountSelector } from 'stores/accounts';
 import { createPost } from 'apis/posts';
 
+import "./PostCreate.css";
+
 export default function PostCreate() {
     const history = useHistory();
     const [error, setError] = useState("");
