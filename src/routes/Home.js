@@ -74,7 +74,9 @@ export default function Home() {
                                                 createdAt={p.createdAt}
                                                 />)
                 ) : (
-                    <div className="home__post__list__empty__result">검색 결과가 없습니다.</div>
+                    <div className="home__post__list__empty__result">
+                        검색 결과가 없습니다.
+                    </div>
                 )
             }
             </div>

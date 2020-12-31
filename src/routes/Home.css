@@ -39,11 +39,12 @@
     color: red;
     font-size: 0.8rem;
     text-align: left;
-    width: 34%;
     padding: 0.2rem;
-    margin: auto;
 }
 
 .home__post__list__empty__result {
-    text-align: center;
+    position: fixed;
+    left: 45%;
+    top: 50%;
+    font-size: 1.5rem;
 }
