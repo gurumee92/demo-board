@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useHistory } from 'react-router';
 import { Link } from 'react-router-dom';
-import { useRecoilValue } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 
 import { accountSelector } from 'stores/accounts';
+import { spinnerState } from 'stores/spinner';
 import { getPost, deletePost } from 'apis/posts';
 
 import "./PostDetails.css";
@@ -11,13 +12,19 @@ import "./PostDetails.css";
 export default function PostDetails() {
     const history = useHistory();
     const { id } = useParams();
-    const account = useRecoilValue(accountSelector);
     const [post, setPost] = useState(null);
     const [error, setError] = useState("");
+    const account = useRecoilValue(accountSelector);
+    const setSpinnerUp = useSetRecoilState(spinnerState);
     
     useEffect(() => {
         const fetchData = async (id) => {
+            setSpinnerUp(true);
             const response = await getPost(id);
+            setTimeout(() => {
+                setSpinnerUp(false)
+            }, 1000);
+
             const data = response.data;
             
             if (response.error !== "") {
@@ -41,10 +48,15 @@ export default function PostDetails() {
             setPost(null);
             setError(""); 
         }
-    }, [id]);
+    }, [id, setSpinnerUp]);
 
     const onDeleteClick = async () => {
+        setSpinnerUp(true);
         const response = await deletePost(id, account.access_token);
+        setTimeout(() => {
+            setSpinnerUp(false)
+        }, 1000);
+        
         setError(response.error);
 
         if (response.error === "") {

@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { useRecoilValue } from 'recoil';
+import { useRecoilValue, useRecoilState } from 'recoil';
 import { Link } from 'react-router-dom';
 
 import PostItem from 'components/post/PostItem';
 import { accountSelector } from 'stores/accounts';
+import { spinnerState } from 'stores/spinner';
 import { getPostList, searchPosts } from 'apis/posts';
 
 import "./Home.css";
@@ -11,23 +12,31 @@ import "./Home.css";
 export default function Home() {
     const [searchText, setSearchText] = useState("");
     const [error, setError] = useState("");
-    const [postList, setPostList] = useState([]);
+    const [postList, setPostList] = useState([]);    
     const account = useRecoilValue(accountSelector);
+    const [isSpinnerUp, setSpinnerUp] = useRecoilState(spinnerState);
     const isAuth = (account.username !== "" && account.access_token !== "");
 
     useEffect(() => {
         const fetchData = async () => {
+            setSpinnerUp(true);
             const { data } = await getPostList();
+            setTimeout(() => {
+                setSpinnerUp(false)
+            }, 1000);
+
             setPostList(data.map(p => ({
                 ...p,
                 author: p.owner_name,
                 createdAt: p.created_at,
                 updatedAt: p.updatedAt,
             })));
+            
         };
+        
         fetchData();
         return () => setPostList([]);
-    }, [setPostList]);
+    }, [setPostList, setSpinnerUp]);
 
     const onSubmit = async () => {
         if (searchText === "") {
@@ -35,14 +44,18 @@ export default function Home() {
             return;
         }
 
+        setSpinnerUp(true);
         const { data } = await searchPosts(searchText);
+        setTimeout(() => {
+            setSpinnerUp(false)
+        }, 1000);
+
         setPostList(data.map(p => ({
             ...p,
             author: p.owner_name,
             createdAt: p.created_at,
             updatedAt: p.updatedAt,
         })));
-
         setSearchText("");
         setError("");
     }
@@ -74,9 +87,11 @@ export default function Home() {
                                                 createdAt={p.createdAt}
                                                 />)
                 ) : (
-                    <div className="home__post__list__empty__result">
-                        검색 결과가 없습니다.
-                    </div>
+                    (!isSpinnerUp) && (
+                        <div className="home__post__list__empty__result">
+                            검색 결과가 없습니다.
+                        </div>
+                    )
                 )
             }
             </div>
