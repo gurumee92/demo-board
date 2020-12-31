@@ -19,3 +19,31 @@
     right: 15%;
     bottom: 10%;
 }
+
+.home__search {
+    margin: 0;
+    padding: 1rem;
+    border-bottom: 1px solid darkgray;
+}
+
+.home__search > input {
+    width: 30%;
+    height: 1.5rem;
+}
+
+.home__search > button {
+    height: 1.9rem;
+}
+
+.home__search__error {
+    color: red;
+    font-size: 0.8rem;
+    text-align: left;
+    width: 34%;
+    padding: 0.2rem;
+    margin: auto;
+}
+
+.home__post__list__empty__result {
+    text-align: center;
+}
