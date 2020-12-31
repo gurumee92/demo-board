@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router';
 import { useHistory } from 'react-router-dom';
-import { useRecoilValue } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 
 import { accountSelector } from 'stores/accounts';
+import { spinnerState } from 'stores/spinner';
 import PostForm from 'components/post/PostForm';
 import { getPost, updatePost } from 'apis/posts';
 
@@ -12,9 +13,10 @@ import "./PostUpdate.css";
 export default function PostUpdate() {
     const history = useHistory();
     const { id } = useParams();
-    const account = useRecoilValue(accountSelector);
     const [post, setPost] = useState(null);
     const [error, setError] = useState("");
+    const account = useRecoilValue(accountSelector);
+    const setSpinnerUp = useSetRecoilState(spinnerState);
     
     useEffect(() => {
         const fetchData = async (id) => {
@@ -50,7 +52,11 @@ export default function PostUpdate() {
     }
 
     const onSubmit = async (title, content) => {
+        setSpinnerUp(true);
         const response = await updatePost(id, title, content, account.access_token);
+        setTimeout(() => {
+            setSpinnerUp(false)
+        }, 1000);
 
         if (response.error !== "") {
             setError(response.error);

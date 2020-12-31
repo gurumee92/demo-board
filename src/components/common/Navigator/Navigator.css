@@ -1,16 +1,16 @@
 .navigator {
-    
+    position: fixed;
+    right: 1%;
+    top: 6%;
 }
 
 .navigator__button {
-    display: inline-block;
+    
     width: 5rem;
     height: 1.5rem;
     border: 1px solid dimgray;
     background: darkgray;
     color: whitesmoke;
-    justify-content: center;
-    align-items: center;
     margin-left: 0.2rem;
 }
 

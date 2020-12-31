@@ -1,5 +1,7 @@
 .app__header {
     border-bottom: 3px solid whitesmoke;
+    margin: auto;
+    padding: 0.1rem;
 }
 
 .app__header > h1 > a {
