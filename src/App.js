@@ -20,7 +20,7 @@ function App() {
   return (
     <div className="App">
       <header className="app__header">
-        <h1><Link to="/">Demo Board</Link></h1>
+        <h1><a href="/">Demo Board</a></h1>
         <nav className="app__header__navigator">
           <Navigator />
         </nav>
