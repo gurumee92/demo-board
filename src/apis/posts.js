@@ -57,6 +57,20 @@ export const getPostList = async () => {
     }
 }
 
+export const searchPosts = async (keyword) => {
+    try {
+        const response = await axios.get(`${postResourceApiURL}/search?keyword=${keyword}`);
+        return {
+            data: response.data,
+        };
+    } catch(e) {
+        console.error(e);
+        return {
+            data: [],
+        };
+    }
+}
+
 export const updatePost = async (id, title, content, access_token) => {
     try {
         const response = await axios.put(`${postResourceApiURL}/${id}`, {

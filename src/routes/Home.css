@@ -16,6 +16,35 @@
     border-radius: 100%;
     text-align: center;
     font-size: 1.8rem;
-    margin-left: 85rem;
-    margin-top: 45rem;
+    right: 15%;
+    bottom: 10%;
+}
+
+.home__search {
+    margin: 0;
+    padding: 1rem;
+    border-bottom: 1px solid darkgray;
+}
+
+.home__search > input {
+    width: 30%;
+    height: 1.5rem;
+}
+
+.home__search > button {
+    height: 1.9rem;
+}
+
+.home__search__error {
+    color: red;
+    font-size: 0.8rem;
+    text-align: left;
+    padding: 0.2rem;
+}
+
+.home__post__list__empty__result {
+    position: fixed;
+    left: 45%;
+    top: 50%;
+    font-size: 1.5rem;
 }
